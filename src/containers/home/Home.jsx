@@ -83,6 +83,8 @@ function Home() {
 
   useEffect(() => {
     const lsSearchList = localStorage.getItem("searchHistory");
+    const lsIsTempC = localStorage.getItem("isTempC");
+    setIsTempC(lsIsTempC === 'true');
     try {
       const parsedList = JSON.parse(lsSearchList);
       setSearchHistory(parsedList || []);
@@ -112,6 +114,14 @@ function Home() {
     localStorage.setItem("searchHistory", JSON.stringify(currentHistory));
   };
 
+  const toggleTempUnit = (value) => {
+    setIsTempC(value);
+    localStorage.setItem(
+      "isTempC",
+      value,
+    );
+  }
+
   const filteredSearchList = searchHistory?.filter((eachSearch) =>
     eachSearch?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
@@ -132,13 +142,13 @@ function Home() {
           <div className="ButtonContainer">
             <span
               className={isTempC && "ActiveButton"}
-              onClick={() => setIsTempC(true)}
+              onClick={() => toggleTempUnit(true)}
             >
               Celsius
             </span>
             <span
               className={!isTempC && "ActiveButton"}
-              onClick={() => setIsTempC(false)}
+              onClick={() => toggleTempUnit(false)}
             >
               Fahrenheit
             </span>

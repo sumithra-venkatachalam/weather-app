@@ -84,7 +84,7 @@ function Home() {
   useEffect(() => {
     const lsSearchList = localStorage.getItem("searchHistory");
     const lsIsTempC = localStorage.getItem("isTempC");
-    setIsTempC(lsIsTempC === 'true');
+    setIsTempC(lsIsTempC !== 'false');
     try {
       const parsedList = JSON.parse(lsSearchList);
       setSearchHistory(parsedList || []);
